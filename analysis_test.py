@@ -54,7 +54,8 @@ plt.hist(x, bins = 20, color = "green")
 plt.title("Sepal Length in cm")
 plt.xlabel("Sepal_Length_cm")
 plt.ylabel("Count")
-plt.show()
+#plt.show()
+plt.savefig('histogram.png')
 
 y = df["sepal width in cm"]
   

@@ -5,16 +5,15 @@ There are a number of tasks to be carried out during the research and analysis o
 
 TLooking at the readme file that comes with the dataset we can 
 
-- Read the readme file associated with the Fishers Iris dataset.
-    This is an important task to find out whether the data were numeric, 
-
-- Read in the Data
-    Read 
-- Check the data
-- data types
-- Clean the Data
-- Check data
-- Questions we need to ask of the data
-- Univariate Anaylsis
-- Bivariate Analysis 
+* Read in the Iris Data set
+* Check the Iris Data set
+* Clean the Iris data
+* What questions can we ask of the Iris data set
+* Univariate Analysis
+* Histograms for each numeric variable
+* Univariate per Class
+* Analyzing the Summary statistics for the 3 Species
+* Histograms
+* Boxplots
+* Bivariate Analysis
 

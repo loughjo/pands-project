@@ -1,3 +1,6 @@
+#  Iris Data Analysis Project data Analysis code
+
+# Import all the functions 
 
 from msilib.schema import Class
 import numpy as np
@@ -10,29 +13,29 @@ import seaborn as sns
 
 
 
-
-# The code below is for mapping column names to each column in the data and also read in the iris.data csv file and assign it to dataframe df
+# The code below is for mapping column names to each column in the data and more importantly read in the iris.data csv 
+# file and assign it to dataframe which we call df.
 
 colnames=['sepal length in cm', 'sepal width in cm', 'petal length in cm', 'petal width in cm', 'class']
 index=('Iris Setosa', 'Iris Versicolour', 'Iris Virginica')
 df = pd.read_csv("iris.data",names=colnames)
 
 
+# We now check to see the column names and make sure the data is read in ok from the csv file to the dataframe.                   
 print(df.columns)
 
 
 # We check the first 10 rows of data using the head() function to see how the data is displayed and have a brief look at the dataset. 
-
 iris_describe = df.head(10)
 print(iris_describe)
 
 
-# Next using the shape method we can check the dimensions of the df array. 
+# Next using the shape method we can check the dimensions of the df array. We can see the df array has 150 rows and 5 columns. 
 print(df.shape)
 print(df["class"].value_counts())
 
 
-
+# ## Clean the Iris Data
 # We use the dropna() method to remove any rows with missing values.
 df.dropna(inplace=True)
 
@@ -41,87 +44,93 @@ df.dropna(inplace=True)
 print(df.shape)
 print(df["class"].value_counts())
 
-
+# We now check for duplicate data using the drop_duplicates() method and set *inplace=True* so it removes in any duplicates 
+# in the current dataframe - df.
 df.drop_duplicates(inplace=True)
 
 
-# We check the data again and we can see that there were 3 duplicates in total. One duplicate within the Iris-virginica class and two duplicates in the Iris-setosa class.
-
-
+# We check the data again and we can see that there were 3 duplicates in total. 
 print(df.shape)
 print(df["class"].value_counts())
 
-
-# ## Univariate Analysis
-
-# The first piece of real analysis is to carry out analysis on each variable in the dataset. 
-# This is what is known as univariate analysis where We will get the summary data using the describe() function. 
-#file1 = open("analysis.txt","a")
-
+# we will get the summary data using the describe() function. 
 summary_iris_all = df.describe()
 print(summary_iris_all)
 
 
-#numpy_array = a_dataframe.to_numpy()
-#np.savetxt("analysis.txt", summary_iris_all, fmt = "%d")
-np.savetxt("analysis.txt", summary_iris_all, delimiter=' ', newline='n', header='', footer='', comments='# ', encoding=None)
-
-
-# Histogram
+# Histograms for each numeric variable
+# We assign the 'sepal length in cm' data to sepal_length. We create a histogram using plt.hist() method 
 
 
 sepal_length = df["sepal length in cm"]
   
 plt.hist(sepal_length, bins = 20, color = "green")
-plt.title("Sepal Length in cm")
+plt.title("Sepal Length in cm - All Species")
 plt.xlabel("Sepal_Length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Sepal_Length_All_Species_Histogram.png')
+#plt.show()
+plt.close()
 
-
+# The histogram for sepal width which 
 
 
 sepal_width = df["sepal width in cm"]
   
 plt.hist(sepal_width, bins = 20, color = "blue")
-plt.title("Sepal Width in cm")
+plt.title("Sepal Width in cm - All Species")
 plt.xlabel("Sepal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Sepal_Width_All_Species_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[67]:
-
+# The histogram for petal length is interesting, 
 
 petal_length = df["petal length in cm"]
   
 plt.hist(petal_length, bins = 20, color = "red")
-plt.title("petal length in cm")
+plt.title("petal length in cm - All Species")
 plt.xlabel("Petal_Length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Petal_Length_All_Species_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[68]:
-
+# Below is a histogram of petal width 
 
 petal_width = df["petal width in cm"]
   
 plt.hist(petal_width, bins = 20, color = "magenta")
-plt.title("Petal Width in cm")
+plt.title("Petal Width in cm - All Species")
 plt.xlabel("Petal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Sepal_Width_All_Species_Histogram.png')
+#plt.show()
+plt.close()
+
+# We will now carry out Univariate analysis on each Iris plant Class to see what we can fine.
+# First of all we need to split the data by class or species and we use the groupby() method to carry this out. 
+# We now have the iris_class object.
+iris_class = df.groupby('class')
 
 
-# In[69]:
+# We use the get_group method on the iris_class object to pull out the data rows for the 'Iris-setosa' class or species.
+
+setosa = iris_class.get_group('Iris-setosa')
+print(setosa.describe())
 
 
-sns.pairplot(df,hue="class", palette="husl", markers=["o", "s", "D"])
-plt.show()
+# We do the same for the versicolor class.
+versicolor = iris_class.get_group('Iris-versicolor')
+print(versicolor.describe())
 
 
-# In[70]:
+# We do the same for the verginica class.
+
+virginica = iris_class.get_group('Iris-virginica')
+print(virginica.describe())
+
 
 
 iris_class = df.groupby('class')
@@ -129,174 +138,158 @@ setosa = iris_class.get_group('Iris-setosa')
 print(setosa.describe())
 
 
-# In[16]:
-
-
-sns.pairplot(df,palette="husl", markers=["o", "s", "D"])
-plt.show()
-
-
-# In[71]:
-
-
 versicolor = iris_class.get_group('Iris-versicolor')
 print(versicolor.describe())
 
-
-# In[72]:
 
 
 virginica = iris_class.get_group('Iris-virginica')
 print(virginica.describe())
 
 
-# In[73]:
-
 
 setosa_petal_width = setosa["petal width in cm"]
   
 plt.hist(setosa_petal_width, bins = 20, color = "magenta")
-plt.title("Petal Width in cm")
+plt.title("Petal Width in cm - Setosa Species")
 plt.xlabel("Petal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Setosa_Petal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[74]:
 
 
 setosa_petal_length = setosa["petal length in cm"]
   
 plt.hist(setosa_petal_length, bins = 20, color = "yellow")
-plt.title("Petal length in cm")
+plt.title("Petal length in cm - Setosa Species")
 plt.xlabel("Petal_length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Setosa_Petal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[75]:
 
 
 setosa_sepal_length = setosa["sepal length in cm"]
   
 plt.hist(setosa_sepal_length, bins = 20, color = "blue")
-plt.title("Sepal length in cm")
+plt.title("Sepal length in cm - Setosa Species")
 plt.xlabel("Sepal_length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Setosa_Sepal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[76]:
 
 
 setosa_sepal_width = setosa["sepal width in cm"]
   
 plt.hist(setosa_sepal_width, bins = 20, color = "pink")
-plt.title("Sepal Width in cm")
+plt.title("Sepal Width in cm - Setosa Species")
 plt.xlabel("Sepal_Width_cm")
 plt.ylabel("Count")
-plt.show()
-
+plt.savefig('Setosa_Sepal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
 # Versicolor
-
-# In[77]:
 
 
 versicolor_petal_width = versicolor["petal width in cm"]
   
 plt.hist(versicolor_petal_width, bins = 20, color = "magenta")
-plt.title("Petal Width in cm")
+plt.title("Petal Width in cm - Versicolor Species")
 plt.xlabel("Petal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Versicolor_Petal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[78]:
 
 
 versicolor_petal_length = versicolor["petal length in cm"]
   
 plt.hist(versicolor_petal_length, bins = 20, color = "yellow")
-plt.title("Petal length in cm")
+plt.title("Petal length in cm - Versicolor Species")
 plt.xlabel("Petal_length_cm")
 plt.ylabel("Count")
-plt.show()
-
-
-# In[79]:
+plt.savefig('Versicolor_Petal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
 
 versicolor_sepal_length = versicolor["sepal length in cm"]
   
 plt.hist(versicolor_sepal_length, bins = 20, color = "blue")
-plt.title("Sepal length in cm")
+plt.title("Sepal length in cm - Versicolor Species")
 plt.xlabel("Sepal_length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Versicolor_Sepal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[80]:
 
 
 versicolor_sepal_width = versicolor["sepal width in cm"]
   
 plt.hist(versicolor_sepal_width, bins = 20, color = "pink")
-plt.title("Sepal Width in cm")
+plt.title("Sepal Width in cm - Versicolor Species")
 plt.xlabel("Sepal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Versicolor_Sepal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[81]:
 
 
 virginica_petal_width = virginica["petal width in cm"]
   
 plt.hist(virginica_petal_width, bins = 20, color = "magenta")
-plt.title("Petal Width in cm")
+plt.title("Petal Width in cm - Virginica Species")
 plt.xlabel("Petal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Virginica_Petal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[82]:
 
 
 virginica_petal_length = virginica["petal length in cm"]
   
 plt.hist(virginica_petal_length, bins = 20, color = "yellow")
-plt.title("Petal length in cm")
+plt.title("Petal length in cm - Virginica Species")
 plt.xlabel("Petal_length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Virginica_Petal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[83]:
 
 
 virginica_sepal_length = virginica["sepal length in cm"]
   
 plt.hist(virginica_sepal_length, bins = 20, color = "blue")
-plt.title("Sepal length in cm")
+plt.title("Sepal length in cm - Virginica Species")
 plt.xlabel("Sepal_length_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Virginica_Sepal_Length_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[84]:
 
 
 virginica_sepal_width = virginica["sepal width in cm"]
   
 plt.hist(virginica_sepal_width, bins = 20, color = "pink")
-plt.title("Sepal Width in cm")
+plt.title("Sepal Width in cm - Virginica Species")
 plt.xlabel("Sepal_Width_cm")
 plt.ylabel("Count")
-plt.show()
+plt.savefig('Virginica_Sepal_Width_Histogram.png')
+#plt.show()
+plt.close()
 
-
-# In[85]:
 
 
 #plt.hist(virginica_sepal_width, bins = 20, color = "pink")
@@ -314,11 +307,10 @@ axs[1].hist(virginica_sepal_width, color = "magenta")
 axs[1].set_xlabel("Virginica Sepal Width")
 axs[2].hist(versicolor_sepal_width, color = "yellow")
 axs[2].set_xlabel("Versicolor Sepal Width")
+plt.savefig('All_Species_separate_Histograms_Sepal_Width.png')
+#plt.show()
+plt.close()
 
-plt.show()
-
-
-# In[86]:
 
 
 fig, axs = plt.subplots(1, 3, figsize=(12, 5), sharey=True, tight_layout=True)
@@ -330,11 +322,10 @@ axs[1].hist(virginica_sepal_length, color = "magenta")
 axs[1].set_xlabel("Virginica Sepal Length")
 axs[2].hist(versicolor_sepal_length, color = "yellow")
 axs[2].set_xlabel("Versicolor Sepal Length")
+plt.savefig('All_Species_separate_Histograms_Sepal_Length.png')
+#plt.show()
+plt.close()
 
-plt.show()
-
-
-# In[87]:
 
 
 fig, axs = plt.subplots(1, 3, figsize=(12, 5), sharey=True, tight_layout=True)
@@ -346,11 +337,10 @@ axs[1].hist(virginica_petal_width, color = "magenta")
 axs[1].set_xlabel("Virginica Petal Width")
 axs[2].hist(versicolor_petal_width, color = "yellow")
 axs[2].set_xlabel("Versicolor Petal Width")
+plt.savefig('All_Species_separate_Histograms_Petal_Width.png')
+#plt.show()
+plt.close()
 
-plt.show()
-
-
-# In[88]:
 
 
 fig, axs = plt.subplots(1, 3, figsize=(12, 5), sharey=True, tight_layout=True)
@@ -362,13 +352,14 @@ axs[1].hist(virginica_petal_length, color = "magenta")
 axs[1].set_xlabel("Virginica petal Length")
 axs[2].hist(versicolor_petal_length, color = "yellow")
 axs[2].set_xlabel("Versicolor Petal Length")
+plt.savefig('All_Species_separate_Histograms_Petal_Length.png')
+#plt.show()
+plt.close()
 
-plt.show()
+# ## Boxplots
 
+# Boxplot for Petal Lenghth - Setosa, Versicolor and Virginica. 
 
-# Boxplot for Petal Lenghth - Setosa, Versicolor and Virginica. You can clearly see from the 3 boxplots that the median for Setosa Petal length is 1.5cms compared to versicolor petal length which is just below 4.5cms and virginica petal length which is approimately 5.75cm.  
-
-# In[89]:
 
 
 box_plot_data=[setosa_petal_length,versicolor_petal_length,virginica_petal_length]
@@ -380,12 +371,11 @@ box=plt.boxplot(box_plot_data,vert=0,patch_artist=True,labels=['Setosa petal len
 colors = ['cyan', 'lightblue', 'lightgreen', 'tan']
 for patch, color in zip(box['boxes'], colors):
     patch.set_facecolor(color)
-plt.show()
+plt.savefig('All_Species_separate_Boxplots_Petal_Length.png')    
+#plt.show()
+plt.close()
 
-
-# Boxplots for petal Width - Setosa, Versicolor and Virginica. Again Setosa 
-
-# In[96]:
+# Boxplots for petal Width - Setosa, Versicolor and Virginica. 
 
 
 box_plot_data=[setosa_petal_width,versicolor_petal_width,virginica_petal_width]
@@ -395,12 +385,11 @@ box=plt.boxplot(box_plot_data,vert=0,patch_artist=True,labels=['Setosa petal wid
 colors = ['cyan', 'lightblue', 'lightgreen', 'tan']
 for patch, color in zip(box['boxes'], colors):
     patch.set_facecolor(color)
-plt.show()
+plt.savefig('All_Species_separate_Boxplots_Petal_Width.png')
+#plt.show()
+plt.close()
 
-
-# Boxplot for Sepal Lenghth for Setosa, Versicolor and Virginica
-
-# In[95]:
+# Boxplot for Sepal Lenghth for Setosa, Versicolor and Virginica. 
 
 
 box_plot_data=[setosa_sepal_length,versicolor_sepal_length,virginica_sepal_length]
@@ -410,12 +399,12 @@ box=plt.boxplot(box_plot_data,vert=0,patch_artist=True,labels=['Setosa sepal len
 colors = ['cyan', 'lightblue', 'lightgreen', 'tan']
 for patch, color in zip(box['boxes'], colors):
     patch.set_facecolor(color)
-plt.show()
-
+plt.savefig('All_Species_separate_Boxplots_Sepal_Length.png')    
+#plt.show()
+plt.close()
 
 # Boxplot for Sepal Width for the 3 Classes
 
-# In[94]:
 
 
 box_plot_data=[setosa_sepal_width,versicolor_sepal_width,virginica_sepal_width]
@@ -425,11 +414,31 @@ box=plt.boxplot(box_plot_data,vert=0,patch_artist=True,labels=['Setosa sepal wid
 colors = ['cyan', 'lightblue', 'lightgreen', 'tan']
 for patch, color in zip(box['boxes'], colors):
     patch.set_facecolor(color)
-plt.show()
+plt.savefig('All_Species_separate_Boxplots_Sepal_Width.png')
+#plt.show()
+plt.close()
+
+print(df.corr())
 
 
-# In[ ]:
+
+
+sns.pairplot(df,hue="class", palette="husl", markers=["o", "s", "D"])
+plt.savefig('All_Species_scatter_plot.png')
+#plt.show()
+plt.close()
+
+print(setosa.corr(method='pearson'))
+
+
+# If we apply the correlation efficient to the setosa class by using the corr() method we can see that the strongest relationship
 
 
 
+print(versicolor.corr(method='pearson'))
+
+
+
+
+print(virginica.corr(method='pearson'))
 
