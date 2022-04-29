@@ -39,7 +39,7 @@ I hava included an analysis.py which when run will run the code and carry out th
 I have also included a Juypter notebook called analysis.pynb which steps through the code and explains the analysis carried out
 
 ## Investigations into the data set 
-I have oulined the investigations I have carried out in the Juypter notebook.
+I have outlined the investigations I have carried out in the Juypter notebook.
 This included both univariate and bivariate analysis.
 
 ## Interesting Analysis of Iris Data set by others
