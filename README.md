@@ -62,7 +62,7 @@ Finally the author provides a good conclusion and mentions that versicolor and v
 The author doesn't mention that Versicolor has a high correlation coefficient of 0.78 for variables petal length and petal width.
 Also, virginica has a correlation coefficient = 0.86 for variables sepal length and petal length which is a strong relationship.
 
-### Iris Dataset - Exploratory Dtaa Analysis by Lalitha Rajesh
+### Iris Dataset - Exploratory Data Analysis by Lalitha Rajesh
 This is another article I came across was looks and modelling techniques
 The URL is => https://www.kaggle.com/code/lalitharajesh/iris-dataset-exploratory-data-analysis/notebook
 
