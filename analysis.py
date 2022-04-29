@@ -83,8 +83,8 @@ print("\n")
 # we will get the summary data using the describe() function. 
 summary_iris_all = df.describe()
 with open("analysis.txt", "a") as myfile:
-    myfile.write("#######################################################################################")
-    myfile.write("################### Summary Statistics for All 3 Iris Plant Species ###################")
+    myfile.write("#######################################################################################\n")
+    myfile.write("################### Summary Statistics for All 3 Iris Plant Species ###################\n")
     myfile.write("#######################################################################################\n")
     myfile.write("\n")
 with open('analysis.txt', mode='a') as file_object:
@@ -497,14 +497,15 @@ plt.close()
 
 # We use the corr() method to get the correlation coefficient of each pair of variables.
 # Close to 1 means there is a strong relationship between the 2 variables.
-print("###################################################################################################################")
+print("\n")
+print("###################################################################################################################\n")
 print("#### Using the Pearson method we get the Correlation Coeffocient for each apir of variables in the Iris dataset ###")
 print("###################################################################################################################\n")
 print(df.corr(method='pearson'))
 print("\n")
 
 print("######################################################################################################################")
-print("#### Using the Pearson method we get the Correlation Coeffocient for each apir of variables for the SETOSA Species ###")
+print("#### Using the Pearson method we get the Correlation Coeffocient for each pair of variables for the SETOSA Species ###")
 print("######################################################################################################################\n")
 print(setosa.corr(method='pearson'))
 print("\n")
