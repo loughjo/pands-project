@@ -36,7 +36,7 @@ I hava included an analysis.py which when run will run the code and carry out th
 * Outputs a scatter plot of each pair of variables
 * Prints out checks on the Iris data set and also Correlation Coefficients
 
-I have also included a Juypter notebook which steps through the code and explains the analysis carried out
+I have also included a Juypter notebook called analysis.pynb which steps through the code and explains the analysis carried out
 
 ## Investigations into the data set 
 I have oulined the investigations I have carried out in the Juypter notebook.
