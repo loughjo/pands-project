@@ -21,6 +21,9 @@ Looking at the readme file that comes with the dataset we need to carry out the 
   * Scatter Plots
   * Pearson Correlation Coeficient 
   * What further analysis would I like to carry out
+* Interesting Analysis of Iris Data set by others
+  * Yet Another Iris EDA by Aditya Jetely
+  * Iris Dataset - Exploratory Dtaa Analysis by Lalitha Rajesh
 * Summary of Analysis
 
 These tasks are outlined in the Juypter notebook.
@@ -38,6 +41,37 @@ I have also included a Juypter notebook which steps through the code and explain
 ## Investigations into the data set 
 I have oulined the investigations I have carried out in the Juypter notebook.
 This included both univariate and bivariate analysis.
+
+## Interesting Analysis of Iris Data set by others
+
+### Yet Another Iris EDA by Aditya Jetely
+I came across a very interesting analysis of the Iris Data set by Aditya Jetely.
+The URL is :- https://towardsdatascience.com/eda-of-the-iris-dataset-190f6dfd946d
+
+The first thing is he does a thorough check of the data set looking for duplicates and missing values.
+There are two commands that I will use in the future, one command prints out the actual duplicate rows and 
+shows where the null values are. These are the commands :
+
+shows actual duplicate rows => iris_df[iris_df.duplicated()]
+missing values => isnull().sum(axis=0)
+
+Aditya goes through the scatter plots in detail which is good. he could probably have highlighted what variables 
+show weak relationships for the species. What I do like is the correlation heatmap which identifies the strong and
+weak correlation coefficients. However the heatmap would be more useful if teh author done it per class/ species.
+Finally the author provides a good conclusion and mentions that versicolor and virginica species can be hard to separate.
+The author doesn't mention that Versicolor has a high correlation coefficient of 0.78 for variables petal length and petal width.
+Also, virginica has a correlation coefficient = 0.86 for variables sepal length and petal length which is a strong relationship.
+
+### Iris Dataset - Exploratory Dtaa Analysis by Lalitha Rajesh
+This is another article I came across was looks and modelling techniques
+The URL is => https://www.kaggle.com/code/lalitharajesh/iris-dataset-exploratory-data-analysis/notebook
+
+One criticism is that the author doesn't provide enough of information on coding of the modelling carried out.
+They could also have provided more information on the results of the univariate and bivariate analysis carried out.
+The GaussianNB() and K means clustering models are used for modelling. The GaussianNB model provides an accuracy score of 0.96
+which is high. I would like to explore the modelling techniques on teh Iris dataset. 
+
+
 
 ## Summary of dataset
 We can see from carrying out both Univariate and Bivariate analysis that we can distinguish between each of the three Iris plant species. 
